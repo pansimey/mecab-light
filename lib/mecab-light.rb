@@ -1,14 +1,15 @@
 require 'MeCab'
 require 'mecab-light/version'
+require 'mecab-light/tagger'
 require 'mecab-light/result'
 require 'mecab-light/morpheme'
 
 class Mecab
   def initialize
-    @tagger = MeCab::Tagger.new
+    @tagger = Tagger.new
   end
 
-  def parse(text)
-    Result.new(@tagger.parse(text).split(/\n/)[0..-2])
+  def parse(string)
+    Result.new(@tagger.parse_to_lines(string))
   end
 end
