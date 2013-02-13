@@ -59,6 +59,19 @@ describe Mecab::Result do
     end
   end
 end
+describe Mecab::Tagger do
+  before { @tagger = Mecab::Tagger.new }
+  subject { @tagger }
+  it { should respond_to :parse_to_lines }
+  describe '#parse_to_lines' do
+    context 'when argument "見る"' do
+      subject { @tagger.parse_to_lines('見る') }
+      it 'should return Array' do
+        should be_an_instance_of Array
+      end
+    end
+  end
+end
 describe Mecab do
   before { @mecab = Mecab.new }
   subject { @mecab }
@@ -68,6 +81,21 @@ describe Mecab do
       before { @result = @mecab.parse('見る') }
       it 'should return Mecab::Result object' do
         @result.should be_an_instance_of Mecab::Result
+      end
+      describe 'returned Mecab::Result object' do
+        context '#[0]' do
+          before { @morpheme = @result[0] }
+          subject { @morpheme }
+          it 'should return Mecab::Morpheme object' do
+            should be_an_instance_of Mecab::Morpheme
+          end
+          describe 'returned Mecab::Morpheme object' do
+            context '#surface' do
+              subject { @morpheme.surface }
+              it { should eq '見る' }
+            end
+          end
+        end
       end
     end
   end
