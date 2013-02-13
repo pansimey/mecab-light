@@ -9,6 +9,6 @@ class Mecab
   end
 
   def parse(text)
-    Result.new(@tagger.parse(text).split(/\n/))
+    Result.new(@tagger.parse(text).split(/\n/)[0..-2])
   end
 end
