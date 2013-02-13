@@ -1,4 +1,4 @@
-# Mecab::Light
+# mecab-light
 
 Use a sequence of results as an Enumerable object.
 
