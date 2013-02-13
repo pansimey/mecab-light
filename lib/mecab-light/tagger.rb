@@ -5,7 +5,7 @@ class Mecab
     end
 
     def parse_to_lines(string)
-      @tagger.parse(string).split(/\n/)[0..-2]
+      return @tagger.parse(string).split(/\n/)[0..-2]
     end
   end
 end

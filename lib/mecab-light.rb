@@ -10,6 +10,6 @@ class Mecab
   end
 
   def parse(string)
-    Result.new(@tagger.parse_to_lines(string))
+    return Result.new(@tagger.parse_to_lines(string))
   end
 end
