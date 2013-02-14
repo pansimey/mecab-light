@@ -66,8 +66,8 @@ describe Mecab::Tagger do
   describe '#parse_to_lines' do
     context 'when argument "見る"' do
       subject { @tagger.parse_to_lines('見る') }
-      it 'should return Array' do
-        should be_an_instance_of Array
+      it 'should return Enumerator' do
+        should be_an_instance_of Enumerator
       end
     end
   end
