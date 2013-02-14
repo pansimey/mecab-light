@@ -7,7 +7,7 @@ describe Mecab::Morpheme do
   context 'when initialized with the result line of the word "見る"' do
     before do
       @morpheme = Mecab::Morpheme.new(
-        "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル")
+        "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n")
     end
     subject { @morpheme }
     its(:surface){ should eq '見る' }
