@@ -23,10 +23,10 @@ describe Mecab::Morpheme do
   end
 end
 describe Mecab::Result do
-  context 'when initialized with the result array of the word "見る"' do
+  context 'when initialized with the result Enumerator of the word "見る"' do
     before do
       @result = Mecab::Result.new(
-        ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル"])
+        ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n"].to_enum)
     end
     subject { @result }
     it { should respond_to :each }
