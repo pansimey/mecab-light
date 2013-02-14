@@ -31,6 +31,7 @@ describe Mecab::Result do
     subject { @result }
     it { should respond_to :each }
     it { should be_an Enumerable }
+    its(:count){ should be 1 }
     describe '#each' do
       context 'with block' do
         subject { @result.each{} }
