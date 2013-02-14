@@ -1,7 +1,7 @@
 class Mecab
   class Morpheme
     def initialize(line)
-      @surface, @feature = line.split(/\t/)
+      @surface, @feature = line.chomp.split(/\t/)
     end
     attr_reader :surface, :feature
   end
