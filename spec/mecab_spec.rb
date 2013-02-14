@@ -70,6 +70,7 @@ describe Mecab::Tagger do
       it 'should return Enumerator' do
         should be_an_instance_of Enumerator
       end
+      its(:count){ should be 1 }
     end
   end
 end
@@ -80,9 +81,11 @@ describe Mecab do
   describe '#parse' do
     context 'when argument "見る"' do
       before { @result = @mecab.parse('見る') }
+      subject { @result }
       it 'should return Mecab::Result object' do
-        @result.should be_an_instance_of Mecab::Result
+        should be_an_instance_of Mecab::Result
       end
+      its(:count){ should be 1 }
       describe 'returned Mecab::Result object' do
         context '#[0]' do
           before { @morpheme = @result[0] }
