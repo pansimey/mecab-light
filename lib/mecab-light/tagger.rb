@@ -4,8 +4,8 @@ class Mecab
       @tagger = MeCab::Tagger.new
     end
 
-    def parse_to_lines(string)
-      return @tagger.parse(string).sub(/EOS\n$/, '').lines
+    def parse_to_enum(string)
+      return @tagger.parse(string).sub(/EOS\n$/, '').each_line
     end
   end
 end

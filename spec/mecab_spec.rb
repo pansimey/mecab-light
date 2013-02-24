@@ -63,10 +63,10 @@ end
 describe Mecab::Tagger do
   before { @tagger = Mecab::Tagger.new }
   subject { @tagger }
-  it { should respond_to :parse_to_lines }
-  describe '#parse_to_lines' do
+  it { should respond_to :parse_to_enum }
+  describe '#parse_to_enum' do
     context 'when argument "見る"' do
-      subject { @tagger.parse_to_lines('見る') }
+      subject { @tagger.parse_to_enum('見る') }
       it 'should return Enumerator' do
         should be_an_instance_of Enumerator
       end
