@@ -10,6 +10,6 @@ class Mecab
   end
 
   def parse(string)
-    return Result.new(@tagger.parse_to_enum(string))
+    Result.new(@tagger.parse_to_enum(string))
   end
 end

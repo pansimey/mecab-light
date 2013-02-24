@@ -5,7 +5,7 @@ class Mecab
     end
 
     def parse_to_enum(string)
-      return @tagger.parse(string).sub(/EOS\n$/, '').each_line
+      @tagger.parse(string).sub(/EOS\n$/, '').each_line
     end
   end
 end
