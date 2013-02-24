@@ -1,8 +1,8 @@
 class Mecab
   class Result
     include Enumerable
-    def initialize(lines)
-      @morphemes = lines.map{|line| Morpheme.new(line) }
+    def initialize(line_enum)
+      @morphemes = line_enum.map{|line| Morpheme.new(line) }
     end
 
     def each(&block)
