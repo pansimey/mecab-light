@@ -1,4 +1,4 @@
-# mecab-light
+# mecab-light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
 
 Use a sequence of results as an Enumerable object.
 
