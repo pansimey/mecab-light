@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["hajime.wakahara@gmail.com"]
   gem.description   = %q{Use a sequence of results as an Enumerable object.}
   gem.summary       = %q{A Thin Wrapper for mecab-ruby}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/hadzimme/mecab-light"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
