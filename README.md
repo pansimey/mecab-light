@@ -4,6 +4,8 @@ Use a sequence of results as an Enumerable object.
 
 ## Installation
 
+At first, install the official gem "mecab-ruby" manually.
+
 Add this line to your application's Gemfile:
 
     gem 'mecab-light'
