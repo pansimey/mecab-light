@@ -21,11 +21,11 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-require 'mecab-light'
+require 'mecab/light'
 
-mecab = Mecab.new
-text = 'この文を形態素解析してください。'
-result = mecab.parse(text)
+tagger = MeCab::Light::Tagger.new
+string = 'この文を形態素解析してください。'
+result = tagger.parse(string)
 result[0].surface #=> "この"
 result.map{|morpheme| morpheme.surface }
 #=> ["この", "文", "を", "形態素", "解析", "し", "て", "ください", "。"]
