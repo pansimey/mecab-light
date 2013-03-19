@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mecab-light/version'
+require 'mecab/light/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "mecab-light"
-  gem.version       = Mecab::VERSION
+  gem.version       = MeCab::Light::VERSION
   gem.authors       = ["Hajime WAKAHARA"]
   gem.email         = ["hajime.wakahara@gmail.com"]
   gem.description   = %q{Use a sequence of results as an Enumerable object.}

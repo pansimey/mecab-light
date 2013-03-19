@@ -3,12 +3,12 @@
 $:.unshift(File.expand_path(File.dirname(__FILE__)) + '/lib')
 
 require 'rspec'
-require 'mecab-light'
+require 'mecab/light'
 
-describe Mecab::Morpheme do
+describe MeCab::Light::Morpheme do
   context 'when initialized with the result line of the word "見る"' do
     before do
-      @morpheme = Mecab::Morpheme.new(
+      @morpheme = MeCab::Light::Morpheme.new(
         "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n")
     end
     subject { @morpheme }
@@ -24,10 +24,10 @@ describe Mecab::Morpheme do
     end
   end
 end
-describe Mecab::Result do
+describe MeCab::Light::Result do
   context 'when initialized with the result Enumerator of the word "見る"' do
     before do
-      @result = Mecab::Result.new(
+      @result = MeCab::Light::Result.new(
         ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n"].to_enum)
     end
     subject { @result }
@@ -51,19 +51,19 @@ describe Mecab::Result do
     describe '#[]' do
       context 'when argument 0' do
         subject { @result[0] }
-        it { should be_an_instance_of Mecab::Morpheme }
+        it { should be_an_instance_of MeCab::Light::Morpheme }
       end
     end
     describe '#at' do
       context 'when argument 0' do
         subject { @result.at(0) }
-        it { should be_an_instance_of Mecab::Morpheme }
+        it { should be_an_instance_of MeCab::Light::Morpheme }
       end
     end
   end
 end
-describe Mecab::Tagger do
-  before { @tagger = Mecab::Tagger.new }
+describe MeCab::Tagger do
+  before { @tagger = MeCab::Tagger.new }
   subject { @tagger }
   it { should respond_to :parse_to_enum }
   describe '#parse_to_enum' do
@@ -76,26 +76,26 @@ describe Mecab::Tagger do
     end
   end
 end
-describe Mecab do
-  before { @mecab = Mecab.new }
-  subject { @mecab }
+describe MeCab::Light::Tagger do
+  before { @tagger = MeCab::Light::Tagger.new }
+  subject { @tagger }
   it { should respond_to :parse }
   describe '#parse' do
     context 'when argument "見る"' do
-      before { @result = @mecab.parse('見る') }
+      before { @result = @tagger.parse('見る') }
       subject { @result }
-      it 'should return Mecab::Result object' do
-        should be_an_instance_of Mecab::Result
+      it 'should return MeCab::Light::Result object' do
+        should be_an_instance_of MeCab::Light::Result
       end
       its(:count){ should be 1 }
-      describe 'returned Mecab::Result object' do
+      describe 'returned MeCab::Light::Result object' do
         context '#[0]' do
           before { @morpheme = @result[0] }
           subject { @morpheme }
-          it 'should return Mecab::Morpheme object' do
-            should be_an_instance_of Mecab::Morpheme
+          it 'should return MeCab::Light::Morpheme object' do
+            should be_an_instance_of MeCab::Light::Morpheme
           end
-          describe 'returned Mecab::Morpheme object' do
+          describe 'returned MeCab::Light::Morpheme object' do
             context '#surface' do
               subject { @morpheme.surface }
               it { should eq '見る' }
