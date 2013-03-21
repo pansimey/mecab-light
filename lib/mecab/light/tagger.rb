@@ -6,7 +6,12 @@ module MeCab
       end
 
       def parse(string)
-        Result.new(@core_tagger.parse_to_enum(string))
+        Result.new(parse_to_enum(string))
+      end
+
+      private
+      def parse_to_enum
+        @core_tagger.parse(string).sub(/EOS\n$/, '').each_line
       end
     end
   end
