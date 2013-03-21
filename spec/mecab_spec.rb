@@ -62,20 +62,6 @@ describe MeCab::Light::Result do
     end
   end
 end
-describe MeCab::Tagger do
-  before { @tagger = MeCab::Tagger.new }
-  subject { @tagger }
-  it { should respond_to :parse_to_enum }
-  describe 'parse_to_enum' do
-    context 'when argument "見る"' do
-      subject { @tagger.parse_to_enum('見る') }
-      it 'should return Enumerator' do
-        should be_an_instance_of Enumerator
-      end
-      its(:count){ should be 1 }
-    end
-  end
-end
 describe MeCab::Light::Tagger do
   before { @tagger = MeCab::Light::Tagger.new }
   subject { @tagger }

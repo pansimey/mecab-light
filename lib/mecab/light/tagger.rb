@@ -10,7 +10,7 @@ module MeCab
       end
 
       private
-      def parse_to_enum
+      def parse_to_enum(string)
         @core_tagger.parse(string).sub(/EOS\n$/, '').each_line
       end
     end
