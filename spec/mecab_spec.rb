@@ -1,9 +1,24 @@
 # coding: utf-8
 
-$:.unshift(File.expand_path(File.dirname(__FILE__)) + '/lib')
-
 require 'rspec'
 require 'mecab/light'
+
+module MeCab
+  module Light
+    class Tagger
+      module Binding
+        def self.mecab_new2(arg)
+          :dummy_mecab
+        end
+
+        def self.mecab_sparse_tostr(mecab, string)
+          result = "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
+          result.force_encoding('ASCII-8BIT')
+        end
+      end
+    end
+  end
+end
 
 describe MeCab::Light::Morpheme do
   context 'when initialized with the result line of the word "見る"' do

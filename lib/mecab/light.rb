@@ -1,4 +1,4 @@
-require 'MeCab'
+require 'ffi'
 require 'mecab/light/version'
 require 'mecab/light/morpheme'
 require 'mecab/light/result'

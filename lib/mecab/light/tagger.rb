@@ -1,8 +1,15 @@
 module MeCab
   module Light
     class Tagger
-      def initialize(*args)
-        @core_tagger = MeCab::Tagger.new(*args)
+      module Binding
+        extend FFI::Library
+        ffi_lib 'mecab'
+        attach_function :mecab_new2, [:string], :pointer
+        attach_function :mecab_sparse_tostr, [:pointer, :string], :string
+      end
+
+      def initialize
+        @mecab = Binding.mecab_new2('')
       end
 
       def parse(string)
@@ -11,7 +18,12 @@ module MeCab
 
       private
       def parse_to_enum(string)
-        @core_tagger.parse(string).sub(/EOS\n$/, '').each_line
+        parse_to_str(string).sub(/EOS\n$/, '').each_line
+      end
+
+      def parse_to_str(string)
+        encoding = Encoding.default_external
+        Binding.mecab_sparse_tostr(@mecab, string).force_encoding(encoding)
       end
     end
   end
