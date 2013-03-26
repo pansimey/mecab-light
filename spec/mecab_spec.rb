@@ -9,16 +9,14 @@ end
 
 module MeCab
   module Light
-    class Tagger
-      module Binding
-        def self.mecab_new2(arg)
-          :dummy_mecab
-        end
+    module Binding
+      def self.mecab_new2(arg)
+        :dummy_mecab
+      end
 
-        def self.mecab_sparse_tostr(mecab, string)
-          result = "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
-          result.force_encoding('ASCII-8BIT')
-        end
+      def self.mecab_sparse_tostr(mecab, string)
+        result = "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
+        result.force_encoding('ASCII-8BIT')
       end
     end
   end
