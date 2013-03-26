@@ -5,6 +5,7 @@ begin
   require 'mecab/light'
 rescue LoadError
   puts 'loaded mecab-light but MeCab does not exist.'
+  puts 'dummy binding will be loaded.'
 end
 
 module MeCab
