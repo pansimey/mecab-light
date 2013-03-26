@@ -1,7 +1,11 @@
 # coding: utf-8
 
 require 'rspec'
-require 'mecab/light'
+begin
+  require 'mecab/light'
+rescue LoadError
+  puts 'loaded mecab-light but MeCab does not exist.'
+end
 
 module MeCab
   module Light
