@@ -1,10 +1,13 @@
-# mecab-light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
+# MeCab::Light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
 
 Use a sequence of results as an Enumerable object.
 
 ## Installation
 
-At first, install the official gem "mecab-ruby" manually.
+This gem works without official binding.
+MeCab::Light is a 'light' tool.
+This supports only the 'parse' method for now,
+and the method's feature is totally different from its original.
 
 Add this line to your application's Gemfile:
 
