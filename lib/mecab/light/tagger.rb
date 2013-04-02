@@ -2,7 +2,7 @@ module MeCab
   module Light
     class Tagger
       def initialize
-        @mecab = Binding.mecab_new2('')
+        @mecab = Binding.new('')
       end
 
       def parse(string)
@@ -11,12 +11,7 @@ module MeCab
 
       private
       def parse_to_enum(string)
-        parse_to_str(string).sub(/EOS\n$/, '').each_line
-      end
-
-      def parse_to_str(string)
-        encoding = Encoding.default_external
-        Binding.mecab_sparse_tostr(@mecab, string).force_encoding(encoding)
+        @mecab.parse_to_s(string).sub(/EOS\n$/, '').each_line
       end
     end
   end

@@ -10,14 +10,12 @@ end
 
 module MeCab
   module Light
-    module Binding
-      def self.mecab_new2(arg)
-        :dummy_mecab
+    class Binding
+      def initialize(option)
       end
 
-      def self.mecab_sparse_tostr(mecab, string)
-        result = "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
-        result.force_encoding('ASCII-8BIT')
+      def parse_to_s(string)
+        "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
       end
     end
   end
