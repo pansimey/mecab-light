@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = MeCab::Light::VERSION
   gem.authors       = ["Hajime WAKAHARA"]
   gem.email         = ["hajime.wakahara@gmail.com"]
-  gem.description   = %q{Use a sequence of results as an Enumerable object.}
-  gem.summary       = %q{An UNOFFICIAL simple interface for MeCab}
+  gem.description   = %q{Use a sequence of morphemes as an Enumerable object.}
+  gem.summary       = %q{An simple interface for MeCab (UNOFFICIAL)}
   gem.homepage      = "https://github.com/hadzimme/mecab-light"
 
   gem.files         = `git ls-files`.split($/)
