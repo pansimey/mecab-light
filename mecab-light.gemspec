@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Hajime WAKAHARA"]
   gem.email         = ["hajime.wakahara@gmail.com"]
   gem.description   = %q{Use a sequence of results as an Enumerable object.}
-  gem.summary       = %q{A simple interface for MeCab}
+  gem.summary       = %q{An UNOFFICIAL simple interface for MeCab}
   gem.homepage      = "https://github.com/hadzimme/mecab-light"
 
   gem.files         = `git ls-files`.split($/)
