@@ -1,6 +1,6 @@
 # MeCab::Light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
 
-Use a sequence of results as an Enumerable object.
+Use a sequence of morphemes as an Enumerable object.
 
 ## Installation
 
