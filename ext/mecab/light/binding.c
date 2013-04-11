@@ -37,7 +37,7 @@ rb_mecab_light_binding_parse_to_s(VALUE self, VALUE str)
 }
 
 void
-Init_mecab_light_binding()
+Init_binding()
 {
   VALUE rb_mMeCab, rb_mMeCab_Light, rb_cMeCab_Light_Binding;
 
