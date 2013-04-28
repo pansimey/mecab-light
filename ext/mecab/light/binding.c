@@ -2,37 +2,37 @@
 #include <ruby/encoding.h>
 #include <mecab.h>
 
-struct binding {
-  mecab_t* mecab;
-};
+typedef struct {
+  mecab_t* ptr;
+} MeCab;
 
 static VALUE
 binding_alloc(VALUE klass)
 {
-  struct binding* ptr = ALLOC(struct binding);
-  return Data_Wrap_Struct(klass, 0, -1, ptr);
+  MeCab* mecab = ALLOC(MeCab);
+  return Data_Wrap_Struct(klass, 0, 0, mecab);
 }
 
 static VALUE
 rb_mecab_light_binding_initialize(VALUE self, VALUE arg)
 {
-  struct binding* ptr;
+  MeCab* mecab;
 
-  Data_Get_Struct(self, struct binding, ptr);
-  ptr->mecab = mecab_new2(RSTRING_PTR(arg));
+  Data_Get_Struct(self, MeCab, mecab);
+  mecab->ptr = mecab_new2(RSTRING_PTR(arg));
   return Qnil;
 }
 
 static VALUE
 rb_mecab_light_binding_parse_to_s(VALUE self, VALUE str)
 {
-  struct binding* ptr;
+  MeCab* mecab;
   const char* result;
   rb_encoding* enc;
 
-  Data_Get_Struct(self, struct binding, ptr);
+  Data_Get_Struct(self, MeCab, mecab);
   enc = rb_enc_get(str);
-  result = mecab_sparse_tostr(ptr->mecab, RSTRING_PTR(str));
+  result = mecab_sparse_tostr(mecab->ptr, RSTRING_PTR(str));
   return rb_enc_associate(rb_str_new2(result), enc);
 }
 
