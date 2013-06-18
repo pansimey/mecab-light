@@ -19,9 +19,9 @@ Or install it yourself as:
 ## Usage
 
 This gem works without official binding.
-MeCab::Light is a 'light' tool.
-This supports only the 'parse' method for now,
-and the method's feature is totally different from its original.
+MeCab::Light is a lightweight tool.
+This supports only the 'parse' method for now.
+Note that the method's feature is totally different from its original.
 
 ```ruby
 require 'mecab/light'
