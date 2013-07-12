@@ -1,109 +1,101 @@
 # coding: utf-8
 
-require 'rspec'
 begin
   require 'mecab/light'
 rescue LoadError
-  puts 'loaded mecab-light but MeCab does not exist.'
-  puts 'dummy binding will be loaded.'
+  puts 'loaded mecab-light but its binding class has not been built.'
+  puts 'a dummy binding class will be loaded.'
+  class MeCab::Light::Binding; end
 end
 
-module MeCab
-  module Light
-    class Binding
-      def initialize(option)
-      end
-
-      def parse_to_s(string)
-        "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n"
-      end
-    end
-  end
-end
 
 describe MeCab::Light::Morpheme do
-  context 'when initialized with the result line of the word "見る"' do
-    before do
-      @morpheme = MeCab::Light::Morpheme.new(
-        "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n")
+  let(:klass) { MeCab::Light::Morpheme }
+  let(:result_line) { "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n" }
+  let(:instance) { klass.new(result_line) }
+  let(:surface) { '見る' }
+  let(:feature) { '動詞,自立,*,*,一段,基本形,見る,ミル,ミル' }
+  context 'class' do
+    it { expect(klass).to respond_to(:new).with(1).argument }
+  end
+  context 'instance (initialized with the result line of the word "見る")' do
+    it { expect(instance).to respond_to(:surface).with(0).arguments }
+    it { expect(instance).to respond_to(:feature).with(0).arguments }
+    context 'surface' do
+      it { expect(instance.surface).to eq(surface) }
+      context 'encoding' do
+        it { expect(instance.surface.encoding).to eq(Encoding::UTF_8) }
+      end
     end
-    subject { @morpheme }
-    its(:surface){ should eq '見る' }
-    its(:feature){ should eq '動詞,自立,*,*,一段,基本形,見る,ミル,ミル' }
-    describe 'surface' do
-      subject { @morpheme.surface }
-      its(:encoding){ should be Encoding::UTF_8 }
-    end
-    describe 'feature' do
-      subject { @morpheme.feature }
-      its(:encoding){ should be Encoding::UTF_8 }
+    context 'feature' do
+      it { expect(instance.feature).to eq(feature) }
+      context 'encoding' do
+        it { expect(instance.feature.encoding).to eq(Encoding::UTF_8) }
+      end
     end
   end
 end
 describe MeCab::Light::Result do
-  context 'when initialized with the result Enumerator of the word "見る"' do
-    before do
-      @result = MeCab::Light::Result.new(
-        ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n"].to_enum)
+  let(:klass) { MeCab::Light::Result }
+  let(:result_enum) do
+    ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n"].to_enum
+  end
+  let(:instance) { klass.new(result_enum) }
+  let(:morpheme) { MeCab::Light::Morpheme }
+  context 'class' do
+    it { expect(klass).to respond_to(:new).with(1).argument }
+  end
+  context 'instance (initialized with the result enum of the word "見る")' do
+    it { expect(instance).to respond_to(:each).with(0).arguments }
+    it { expect(instance).to be_an(Enumerable) }
+    context 'count' do
+      it { expect(instance.count).to eq(1) }
     end
-    subject { @result }
-    it { should respond_to :each }
-    it { should be_an Enumerable }
-    its(:count){ should be 1 }
-    describe 'each' do
+    context 'each' do
       context 'with block' do
-        subject { @result.each{} }
-        it 'should return self' do
-          should be @result
-        end
+        it { expect(instance.each{}).to eq(instance) }
+        it { expect { |b| instance.each(&b) }.to yield_control }
+        it { expect { |b| instance.each(&b) }.to yield_with_args(morpheme) }
       end
       context 'without block' do
-        subject { @result.each }
-        it 'should return Enumerator' do
-          should be_an_instance_of Enumerator
-        end
+        it { expect(instance.each).to be_an_instance_of(Enumerator) }
       end
     end
-    describe '[]' do
-      context 'when argument 0' do
-        subject { @result[0] }
-        it { should be_an_instance_of MeCab::Light::Morpheme }
-      end
+    context '[] with 0' do
+      it { expect(instance[0]).to be_an_instance_of(morpheme) }
     end
-    describe 'at' do
-      context 'when argument 0' do
-        subject { @result.at(0) }
-        it { should be_an_instance_of MeCab::Light::Morpheme }
-      end
+    context 'at with 0' do
+      it { expect(instance.at(0)).to be_an_instance_of(morpheme) }
     end
   end
 end
 describe MeCab::Light::Tagger do
-  before { @tagger = MeCab::Light::Tagger.new }
-  subject { @tagger }
-  it { should respond_to :parse }
-  describe 'parse' do
-    context 'when argument "見る"' do
-      before { @result = @tagger.parse('見る') }
-      subject { @result }
-      it 'should return MeCab::Light::Result object' do
-        should be_an_instance_of MeCab::Light::Result
-      end
-      its(:count){ should be 1 }
-      describe 'MeCab::Light::Result (returned)' do
-        context '[0]' do
-          before { @morpheme = @result[0] }
-          subject { @morpheme }
-          it 'should return MeCab::Light::Morpheme object' do
-            should be_an_instance_of MeCab::Light::Morpheme
-          end
-          describe 'MeCab::Light::Morpheme (returned)' do
-            context 'surface' do
-              subject { @morpheme.surface }
-              it { should eq '見る' }
-            end
-          end
+  let(:binding) { double( parse_to_s: result_str ) }
+  before { MeCab::Light::Binding.stub(:new).and_return(binding) }
+  let(:klass) { MeCab::Light::Tagger }
+  let(:instance) { klass.new }
+  let(:result_str) { "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n" }
+  let(:result) { MeCab::Light::Result }
+  context 'class' do
+    it { expect(klass).to respond_to(:new).with(0).arguments }
+    context 'new' do
+      context 'MeCab::Light::Binding class' do
+        it 'should receive #new with ""' do
+          expect(MeCab::Light::Binding).to receive(:new).with('')
         end
+        after { klass.new }
+      end
+    end
+  end
+  context 'instance' do
+    it { expect(instance).to respond_to(:parse).with(1).argument }
+    context 'parse with "見る"' do
+      it { expect(instance.parse('見る')).to be_an_instance_of(result) }
+      context 'a MeCab::Light::Binding object' do
+        it 'should receive #parse_to_s with "見る"' do
+          expect(binding).to receive(:parse_to_s).with('見る')
+        end
+        after { instance.parse('見る') }
       end
     end
   end
