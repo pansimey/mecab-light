@@ -8,7 +8,6 @@ rescue LoadError
   class MeCab::Light::Binding; end
 end
 
-
 describe MeCab::Light::Morpheme do
   let(:klass) { MeCab::Light::Morpheme }
   let(:result_line) { "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n" }
