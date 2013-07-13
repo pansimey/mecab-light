@@ -40,7 +40,7 @@ describe MeCab::Light::Result do
     ["見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\n"].to_enum
   end
   let(:instance) { klass.new(result_enum) }
-  let(:morpheme) { MeCab::Light::Morpheme }
+  let(:c_morpheme) { MeCab::Light::Morpheme }
   context 'class' do
     it { expect(klass).to respond_to(:new).with(1).argument }
   end
@@ -54,27 +54,27 @@ describe MeCab::Light::Result do
       context 'with block' do
         it { expect(instance.each{}).to eq(instance) }
         it { expect { |b| instance.each(&b) }.to yield_control }
-        it { expect { |b| instance.each(&b) }.to yield_with_args(morpheme) }
+        it { expect { |b| instance.each(&b) }.to yield_with_args(c_morpheme) }
       end
       context 'without block' do
         it { expect(instance.each).to be_an_instance_of(Enumerator) }
       end
     end
     context '[] with 0' do
-      it { expect(instance[0]).to be_an_instance_of(morpheme) }
+      it { expect(instance[0]).to be_an_instance_of(c_morpheme) }
     end
     context 'at with 0' do
-      it { expect(instance.at(0)).to be_an_instance_of(morpheme) }
+      it { expect(instance.at(0)).to be_an_instance_of(c_morpheme) }
     end
   end
 end
 describe MeCab::Light::Tagger do
+  let(:result_str) { "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n" }
   let(:binding) { double( parse_to_s: result_str ) }
   before { MeCab::Light::Binding.stub(:new).and_return(binding) }
   let(:klass) { MeCab::Light::Tagger }
   let(:instance) { klass.new }
-  let(:result_str) { "見る\t動詞,自立,*,*,一段,基本形,見る,ミル,ミル\nEOS\n" }
-  let(:result) { MeCab::Light::Result }
+  let(:c_result) { MeCab::Light::Result }
   context 'class' do
     it { expect(klass).to respond_to(:new).with(0).arguments }
     context 'new' do
@@ -89,7 +89,7 @@ describe MeCab::Light::Tagger do
   context 'instance' do
     it { expect(instance).to respond_to(:parse).with(1).argument }
     context 'parse with "見る"' do
-      it { expect(instance.parse('見る')).to be_an_instance_of(result) }
+      it { expect(instance.parse('見る')).to be_an_instance_of(c_result) }
       context 'a MeCab::Light::Binding object' do
         it 'should receive #parse_to_s with "見る"' do
           expect(binding).to receive(:parse_to_s).with('見る')
