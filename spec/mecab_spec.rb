@@ -88,6 +88,12 @@ describe MeCab::Light::Tagger do
     it { expect(instance).to respond_to(:parse).with(1).argument }
     context 'parse with "見る"' do
       it { expect(instance.parse('見る')).to be_an_instance_of(MeCab::Light::Result) }
+      context 'MeCab::Light::Result class' do
+        it 'should receive #new with a Enumerator object' do
+          expect(MeCab::Light::Result).to receive(:new).with(kind_of(Enumerator))
+        end
+        after { instance.parse('見る') }
+      end
       context 'a MeCab::Light::Binding object' do
         it 'should receive #parse_to_s with "見る"' do
           expect(binding).to receive(:parse_to_s).with('見る')
