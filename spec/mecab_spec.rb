@@ -49,7 +49,9 @@ describe MeCab::Light::Result do
     end
     context 'each' do
       context 'with block' do
-        it { expect(instance.each{}).to eq(instance) }
+        it 'should return self' do
+          expect(instance.each{}).to eq(instance)
+        end
         it { expect { |b| instance.each(&b) }.to yield_control }
         it { expect { |b| instance.each(&b) }.to yield_with_args(MeCab::Light::Morpheme) }
       end
