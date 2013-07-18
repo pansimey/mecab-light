@@ -20,7 +20,7 @@ Or install it yourself as:
 
 MeCab::Light is a lightweight tool.
 This gem works without the official binding.
-This supports only the 'parse' method for now.
+This supports only Tagger#parse method for now.
 Note that the method's feature is totally different from its original.
 
 ```ruby
