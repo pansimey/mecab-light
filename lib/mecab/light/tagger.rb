@@ -6,12 +6,12 @@ module MeCab
       end
 
       def parse(string)
-        Result.new(parse_to_enum(string))
+        Result.new(parse_to_s(string))
       end
 
       private
-      def parse_to_enum(string)
-        @mecab.parse_to_s(string).sub(/EOS\n$/, '').each_line
+      def parse_to_s(string)
+        @mecab.parse_to_s(string).sub(/EOS\n$/, '')
       end
     end
   end

@@ -2,8 +2,9 @@ module MeCab
   module Light
     class Result
       include Enumerable
-      def initialize(line_enum)
-        @morphemes = line_enum.map{|line| Morpheme.new(line) }
+
+      def initialize(parsed)
+        @morphemes = parsed.each_line.map { |line| Morpheme.new(line) }
       end
 
       def each(&block)
