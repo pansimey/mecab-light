@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe MeCab::Light::Morpheme do
-  let(:line) { "surface\tfeature\n" }
-  let(:morpheme) { MeCab::Light::Morpheme.new(line) }
+  let(:morpheme) { MeCab::Light::Morpheme.new("surface\tfeature\n") }
 
   context 'the class' do
     it { expect(MeCab::Light::Morpheme).to respond_to(:new).with(1).argument }
