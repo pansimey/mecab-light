@@ -1,29 +1,45 @@
 require 'spec_helper'
 
 describe MeCab::Light::Morpheme do
-  let(:morpheme) { MeCab::Light::Morpheme.new("surface\tfeature\n") }
+  describe 'the class' do
+    subject { MeCab::Light::Morpheme }
 
-  context 'the class' do
-    it { expect(MeCab::Light::Morpheme).to respond_to(:new).with(1).argument }
+    it { expect(subject).to respond_to(:new).with(1).argument }
   end
 
-  context 'an instance initialized with "surface\tfeature\n"' do
-    it { expect(morpheme).to respond_to(:surface).with(0).arguments }
-    it { expect(morpheme).to respond_to(:feature).with(0).arguments }
+  describe 'an instance' do
+    let(:morpheme) { MeCab::Light::Morpheme.new(line) }
 
-    context 'surface' do
-      it { expect(morpheme.surface).to eq('surface') }
+    subject { morpheme }
 
-      context 'encoding' do
-        it { expect(morpheme.surface.encoding).to eq(Encoding::UTF_8) }
+    context 'initialized with "surface\tfeature\n"' do
+      let(:line) { "surface\tfeature\n" }
+
+      it { expect(subject).to respond_to(:surface).with(0).arguments }
+      it { expect(subject).to respond_to(:feature).with(0).arguments }
+
+      describe 'surface' do
+        subject { morpheme.surface }
+
+        it { expect(subject).to eq('surface') }
+
+        describe 'encoding' do
+          subject { morpheme.surface.encoding }
+
+          it { expect(subject).to eq(Encoding::UTF_8) }
+        end
       end
-    end
 
-    context 'feature' do
-      it { expect(morpheme.feature).to eq('feature') }
+      describe 'feature' do
+        subject { morpheme.feature }
 
-      context 'encoding' do
-        it { expect(morpheme.feature.encoding).to eq(Encoding::UTF_8) }
+        it { expect(subject).to eq('feature') }
+
+        describe 'encoding' do
+          subject { morpheme.feature.encoding }
+
+          it { expect(subject).to eq(Encoding::UTF_8) }
+        end
       end
     end
   end
