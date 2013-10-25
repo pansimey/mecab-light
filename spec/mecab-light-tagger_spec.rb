@@ -1,56 +1,71 @@
 require 'spec_helper'
 
 describe MeCab::Light::Tagger do
-  let(:binding) { double( parse_to_s: "surface\tfeature\nEOS\n" ) }
-  let(:result) { double('MeCab::Light::Result') }
-  let(:tagger) { MeCab::Light::Tagger.new }
+  subject { MeCab::Light::Tagger }
+
   before do
     MeCab::Light::Binding.stub(:new).and_return(binding)
     MeCab::Light::Result.stub(:new).and_return(result)
   end
 
-  context 'the class' do
-    it { expect(MeCab::Light::Tagger).to respond_to(:new).with(0).arguments }
+  let(:binding) do
+    double('MeCab::Light::Binding',
+           parse_to_s: "surface\tfeature\nEOS\n")
+  end
 
-    context 'new' do
-      context 'MeCab::Light::Binding class' do
-        after do
-          MeCab::Light::Tagger.new
+  let(:result) { double('MeCab::Light::Result') }
+  it { expect(subject).to respond_to(:new).with(0).arguments }
+
+  describe 'new' do
+    subject { new }
+    let(:new) { MeCab::Light::Tagger.new }
+    it { expect(subject).to respond_to(:parse).with(1).argument }
+
+    describe 'parse' do
+      subject { new.parse(string) }
+
+      context 'with "surface"' do
+        let(:string) { 'surface' }
+
+        it 'should be an instance of MeCab::Light::Result' do
+          expect(subject).to eq(result)
         end
 
-        it 'should receive #new with ""' do
-          expect(MeCab::Light::Binding).to receive(:new).with('')
+        describe MeCab::Light::Result do
+          subject { MeCab::Light::Result }
+
+          after do
+            new.parse('surface')
+          end
+
+          it 'should receive #new with "surface\tfeature\n"' do
+            expect(subject).to receive(:new).with("surface\tfeature\n")
+          end
+        end
+
+        describe 'a MeCab::Light::Binding object' do
+          subject { binding }
+
+          after do
+            new.parse('surface')
+          end
+
+          it 'should receive #parse_to_s with "surface"' do
+            expect(binding).to receive(:parse_to_s).with('surface')
+          end
         end
       end
     end
-  end
 
-  context 'an instance' do
-    it { expect(tagger).to respond_to(:parse).with(1).argument }
+    describe MeCab::Light::Binding do
+      subject { MeCab::Light::Binding }
 
-    context 'parse with "surface"' do
-      it 'should be an instance of MeCab::Light::Result' do
-        expect(tagger.parse('surface')).to eq(result)
+      after do
+        MeCab::Light::Tagger.new
       end
 
-      context 'MeCab::Light::Result class' do
-        after do
-          tagger.parse('surface')
-        end
-
-        it 'should receive #new with "surface\tfeature\n"' do
-          expect(MeCab::Light::Result).to receive(:new).with("surface\tfeature\n")
-        end
-      end
-
-      context 'a MeCab::Light::Binding object' do
-        after do
-          tagger.parse('surface')
-        end
-
-        it 'should receive #parse_to_s with "surface"' do
-          expect(binding).to receive(:parse_to_s).with('surface')
-        end
+      it 'should receive #new with ""' do
+        expect(subject).to receive(:new).with('')
       end
     end
   end
