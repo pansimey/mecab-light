@@ -70,17 +70,14 @@ describe MeCab::Light::Result do
           end
         end
       end
-    end
 
-    describe MeCab::Light::Morpheme do
-      subject { MeCab::Light::Morpheme }
+      describe MeCab::Light::Morpheme do
+        subject { MeCab::Light::Morpheme }
 
-      after do
-        MeCab::Light::Result.new("surface\tfeature\n")
-      end
-
-      it 'should receive #new with "surface\tfeature\n"' do
-        expect(subject).to receive(:new).with("surface\tfeature\n")
+        it do
+          new
+          expect(subject).to have_received(:new).with("surface\tfeature\n")
+        end
       end
     end
   end

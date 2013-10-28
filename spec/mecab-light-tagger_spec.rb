@@ -34,24 +34,18 @@ describe MeCab::Light::Tagger do
         describe MeCab::Light::Result do
           subject { MeCab::Light::Result }
 
-          after do
-            new.parse('surface')
-          end
-
-          it 'should receive #new with "surface\tfeature\n"' do
-            expect(subject).to receive(:new).with("surface\tfeature\n")
+          it do
+            new.parse(string)
+            expect(subject).to have_received(:new).with("surface\tfeature\n")
           end
         end
 
         describe 'a MeCab::Light::Binding object' do
           subject { binding }
 
-          after do
-            new.parse('surface')
-          end
-
-          it 'should receive #parse_to_s with "surface"' do
-            expect(binding).to receive(:parse_to_s).with('surface')
+          it do
+            new.parse(string)
+            expect(binding).to have_received(:parse_to_s).with('surface')
           end
         end
       end
@@ -60,12 +54,9 @@ describe MeCab::Light::Tagger do
     describe MeCab::Light::Binding do
       subject { MeCab::Light::Binding }
 
-      after do
-        MeCab::Light::Tagger.new
-      end
-
-      it 'should receive #new with ""' do
-        expect(subject).to receive(:new).with('')
+      it do
+        new
+        expect(subject).to have_received(:new).with('')
       end
     end
   end
