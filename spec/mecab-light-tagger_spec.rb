@@ -16,12 +16,12 @@ describe MeCab::Light::Tagger do
   let(:result) { double('MeCab::Light::Result') }
   it { expect(subject).to respond_to(:new).with(0).arguments }
 
-  describe 'new' do
+  describe :new do
     subject { new }
     let(:new) { MeCab::Light::Tagger.new }
     it { expect(subject).to respond_to(:parse).with(1).argument }
 
-    describe 'parse' do
+    describe :parse do
       subject { new.parse(string) }
 
       context 'with "surface"' do

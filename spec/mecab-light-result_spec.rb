@@ -10,7 +10,7 @@ describe MeCab::Light::Result do
   let(:morpheme) { double('MeCab::Light::Morpheme') }
   it { expect(subject).to respond_to(:new).with(1).argument }
 
-  describe 'new' do
+  describe :new do
     subject { new }
     let(:new) { MeCab::Light::Result.new(parsed) }
 
@@ -19,7 +19,7 @@ describe MeCab::Light::Result do
       it { expect(subject).to respond_to(:each).with(0).arguments }
       it { expect(subject).to be_an(Enumerable) }
 
-      describe 'each' do
+      describe :each do
         subject { new.each(&block) }
 
         context 'with block' do
@@ -42,12 +42,12 @@ describe MeCab::Light::Result do
         end
       end
 
-      describe 'count' do
+      describe :count do
         subject { new.count }
         it { expect(subject).to eq(1) }
       end
 
-      describe '[]' do
+      describe :[] do
         subject { new[nth] }
 
         context 'with 0' do
@@ -59,7 +59,7 @@ describe MeCab::Light::Result do
         end
       end
 
-      describe 'at' do
+      describe :at do
         subject { new.at(nth) }
 
         context 'with 0' do
