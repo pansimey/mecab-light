@@ -13,7 +13,10 @@ describe MeCab::Light::Tagger do
            parse_to_s: "surface\tfeature\nEOS\n")
   end
 
-  let(:result) { double('MeCab::Light::Result') }
+  let(:result) do
+    double('MeCab::Light::Result')
+  end
+
   it { expect(subject).to respond_to(:new).with(0).arguments }
 
   describe :new do
@@ -45,7 +48,7 @@ describe MeCab::Light::Tagger do
 
           it do
             new.parse(string)
-            expect(binding).to have_received(:parse_to_s).with('surface')
+            expect(subject).to have_received(:parse_to_s).with('surface')
           end
         end
       end
