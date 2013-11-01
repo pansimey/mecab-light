@@ -37,8 +37,11 @@ describe MeCab::Light::Tagger do
         describe MeCab::Light::Result do
           subject { MeCab::Light::Result }
 
-          it do
+          before do
             new.parse(string)
+          end
+
+          it do
             expect(subject).to have_received(:new).with("surface\tfeature\n")
           end
         end
@@ -46,8 +49,11 @@ describe MeCab::Light::Tagger do
         describe 'an instance of', MeCab::Light::Binding do
           subject { binding }
 
-          it do
+          before do
             new.parse(string)
+          end
+
+          it do
             expect(subject).to have_received(:parse_to_s).with('surface')
           end
         end
@@ -57,8 +63,11 @@ describe MeCab::Light::Tagger do
     describe MeCab::Light::Binding do
       subject { MeCab::Light::Binding }
 
-      it do
+      before do
         new
+      end
+
+      it do
         expect(subject).to have_received(:new).with('')
       end
     end

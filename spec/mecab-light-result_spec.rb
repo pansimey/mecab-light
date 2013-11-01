@@ -74,8 +74,11 @@ describe MeCab::Light::Result do
       describe MeCab::Light::Morpheme do
         subject { MeCab::Light::Morpheme }
 
-        it do
+        before do
           new
+        end
+
+        it do
           expect(subject).to have_received(:new).with("surface\tfeature\n")
         end
       end
