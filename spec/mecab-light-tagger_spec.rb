@@ -43,7 +43,7 @@ describe MeCab::Light::Tagger do
           end
         end
 
-        describe 'a MeCab::Light::Binding object' do
+        describe 'an instance of', MeCab::Light::Binding do
           subject { binding }
 
           it do
