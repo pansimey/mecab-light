@@ -7,7 +7,7 @@ describe MeCab::Light::Result do
     MeCab::Light::Morpheme.stub(:new).and_return(morpheme)
   end
 
-  let(:morpheme) { double('MeCab::Light::Morpheme') }
+  let(:morpheme) { double(MeCab::Light::Morpheme) }
   it { expect(subject).to respond_to(:new).with(1).argument }
 
   describe :new do

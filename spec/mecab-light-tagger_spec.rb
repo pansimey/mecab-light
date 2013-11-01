@@ -9,12 +9,12 @@ describe MeCab::Light::Tagger do
   end
 
   let(:binding) do
-    double('MeCab::Light::Binding',
+    double(MeCab::Light::Binding,
            parse_to_s: "surface\tfeature\nEOS\n")
   end
 
   let(:result) do
-    double('MeCab::Light::Result')
+    double(MeCab::Light::Result)
   end
 
   it { expect(subject).to respond_to(:new).with(0).arguments }
