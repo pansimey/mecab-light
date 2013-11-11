@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe MeCab::Light::Morpheme do
-  subject { MeCab::Light::Morpheme }
-  it { expect(subject).to respond_to(:new).with(1).argument }
-
   describe :new do
     subject { new }
     let(:new) { MeCab::Light::Morpheme.new(line) }

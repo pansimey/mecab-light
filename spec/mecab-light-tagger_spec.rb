@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe MeCab::Light::Tagger do
-  subject { MeCab::Light::Tagger }
-
   before do
     MeCab::Light::Binding.stub(:new).and_return(binding)
     MeCab::Light::Result.stub(:new).and_return(result)
@@ -16,8 +14,6 @@ describe MeCab::Light::Tagger do
   let(:result) do
     double(MeCab::Light::Result)
   end
-
-  it { expect(subject).to respond_to(:new).with(0).arguments }
 
   describe :new do
     subject { new }

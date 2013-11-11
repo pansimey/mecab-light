@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 describe MeCab::Light::Result do
-  subject { MeCab::Light::Result }
-
   before do
     MeCab::Light::Morpheme.stub(:new).and_return(morpheme)
   end
 
   let(:morpheme) { double(MeCab::Light::Morpheme) }
-  it { expect(subject).to respond_to(:new).with(1).argument }
 
   describe :new do
     subject { new }
