@@ -12,7 +12,7 @@ module MeCab
           @morphemes.each(&block)
           self
         else
-          self.to_enum
+          self.to_enum { @morphemes.size }
         end
       end
 

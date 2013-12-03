@@ -36,6 +36,14 @@ describe MeCab::Light::Result do
         context 'without block' do
           let(:block) { nil }
           it { expect(subject).to be_an_instance_of(Enumerator) }
+
+          describe :size do
+            subject { new.each.size }
+
+            example do
+              expect(subject).to eq(1)
+            end
+          end
         end
       end
 
