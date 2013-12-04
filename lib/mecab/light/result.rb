@@ -20,7 +20,12 @@ module MeCab
         @morphemes[nth]
       end
 
+      def size
+        @morphemes.size
+      end
+
       alias at []
+      alias length size
     end
   end
 end

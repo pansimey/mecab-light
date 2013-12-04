@@ -52,6 +52,16 @@ describe MeCab::Light::Result do
         it { expect(subject).to eq(1) }
       end
 
+      describe :size do
+        subject { new.size }
+        it { expect(subject).to eq(1) }
+      end
+
+      describe :length do
+        subject { new.length }
+        it { expect(subject).to eq(1) }
+      end
+
       describe :[] do
         subject { new[nth] }
 
