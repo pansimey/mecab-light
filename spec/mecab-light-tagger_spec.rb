@@ -18,7 +18,10 @@ describe MeCab::Light::Tagger do
   describe :new do
     subject { new }
     let(:new) { MeCab::Light::Tagger.new }
-    it { expect(subject).to respond_to(:parse).with(1).argument }
+
+    specify do
+      expect(subject).to respond_to(:parse).with(1).argument
+    end
 
     describe :parse do
       subject { new.parse(string) }
@@ -37,7 +40,7 @@ describe MeCab::Light::Tagger do
             new.parse(string)
           end
 
-          it do
+          specify do
             expect(subject).to have_received(:new).with("surface\tfeature\n")
           end
         end
@@ -49,7 +52,7 @@ describe MeCab::Light::Tagger do
             new.parse(string)
           end
 
-          it do
+          specify do
             expect(subject).to have_received(:parse_to_s).with('surface')
           end
         end
@@ -63,7 +66,7 @@ describe MeCab::Light::Tagger do
         new
       end
 
-      it do
+      specify do
         expect(subject).to have_received(:new).with('')
       end
     end

@@ -13,8 +13,14 @@ describe MeCab::Light::Result do
 
     context 'with "surface\tfeature\n"' do
       let(:parsed) { "surface\tfeature\n" }
-      it { expect(subject).to respond_to(:each).with(0).arguments }
-      it { expect(subject).to be_an(Enumerable) }
+
+      specify do
+        expect(subject).to respond_to(:each).with(0).arguments
+      end
+
+      specify do
+        expect(subject).to be_an(Enumerable)
+      end
 
       describe :each do
         subject { new.each(&block) }
@@ -26,7 +32,9 @@ describe MeCab::Light::Result do
             expect(subject).to eq(new)
           end
 
-          it { expect { |b| new.each(&b) }.to yield_control }
+          specify do
+            expect { |b| new.each(&b) }.to yield_control
+          end
 
           it 'should yield with args(MeCab::Light::Morpheme)' do
             expect { |b| new.each(&b) }.to yield_with_args(morpheme)
@@ -35,12 +43,15 @@ describe MeCab::Light::Result do
 
         context 'without block' do
           let(:block) { nil }
-          it { expect(subject).to be_an_instance_of(Enumerator) }
+
+          specify do
+            expect(subject).to be_an_instance_of(Enumerator)
+          end
 
           describe :size do
             subject { new.each.size }
 
-            example do
+            specify do
               expect(subject).to eq(1)
             end
           end
@@ -49,17 +60,26 @@ describe MeCab::Light::Result do
 
       describe :count do
         subject { new.count }
-        it { expect(subject).to eq(1) }
+
+        specify do
+          expect(subject).to eq(1)
+        end
       end
 
       describe :size do
         subject { new.size }
-        it { expect(subject).to eq(1) }
+
+        specify do
+          expect(subject).to eq(1)
+        end
       end
 
       describe :length do
         subject { new.length }
-        it { expect(subject).to eq(1) }
+
+        specify do
+          expect(subject).to eq(1)
+        end
       end
 
       describe :[] do
@@ -93,7 +113,7 @@ describe MeCab::Light::Result do
           new
         end
 
-        it do
+        specify do
           expect(subject).to have_received(:new).with("surface\tfeature\n")
         end
       end
