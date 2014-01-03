@@ -5,14 +5,21 @@ describe MeCab::Light::Result do
     MeCab::Light::Morpheme.stub(:new).and_return(morpheme)
   end
 
-  let(:morpheme) { double(MeCab::Light::Morpheme) }
+  let :morpheme do
+    double(MeCab::Light::Morpheme)
+  end
 
   describe :new do
     subject { new }
-    let(:new) { MeCab::Light::Result.new(parsed) }
+
+    let :new do
+      MeCab::Light::Result.new(parsed)
+    end
 
     context 'with "surface\tfeature\n"' do
-      let(:parsed) { "surface\tfeature\n" }
+      let :parsed do
+        "surface\tfeature\n"
+      end
 
       specify do
         expect(subject).to respond_to(:each).with(0).arguments
@@ -26,7 +33,9 @@ describe MeCab::Light::Result do
         subject { new.each(&block) }
 
         context 'with block' do
-          let(:block) { lambda { |morpheme| } }
+          let :block do
+            lambda { |morpheme| }
+          end
 
           it 'should return self' do
             expect(subject).to eq(new)
@@ -42,7 +51,9 @@ describe MeCab::Light::Result do
         end
 
         context 'without block' do
-          let(:block) { nil }
+          let :block do
+            nil
+          end
 
           specify do
             expect(subject).to be_an_instance_of(Enumerator)
@@ -86,7 +97,9 @@ describe MeCab::Light::Result do
         subject { new[nth] }
 
         context 'with 0' do
-          let(:nth) { 0 }
+          let :nth do
+            0
+          end
 
           it 'should be an instance of Morpheme' do
             expect(subject).to eq(morpheme)
@@ -98,7 +111,9 @@ describe MeCab::Light::Result do
         subject { new.at(nth) }
 
         context 'with 0' do
-          let(:nth) { 0 }
+          let :nth do
+            0
+          end
 
           it 'should be an instance of Morpheme' do
             expect(subject).to eq(morpheme)

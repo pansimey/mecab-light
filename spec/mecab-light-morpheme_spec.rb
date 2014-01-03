@@ -3,10 +3,15 @@ require 'spec_helper'
 describe MeCab::Light::Morpheme do
   describe :new do
     subject { new }
-    let(:new) { MeCab::Light::Morpheme.new(line) }
+
+    let :new do
+      MeCab::Light::Morpheme.new(line)
+    end
 
     context 'with "surface\tfeature\n"' do
-      let(:line) { "surface\tfeature\n" }
+      let :line do
+        "surface\tfeature\n"
+      end
 
       specify do
         expect(subject).to respond_to(:surface).with(0).arguments
