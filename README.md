@@ -1,4 +1,4 @@
-# MeCab::Light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
+# MeCab::Light [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light) [![Coverage Status](https://coveralls.io/repos/hadzimme/mecab-light/badge.png?branch=master)](https://coveralls.io/r/hadzimme/mecab-light?branch=master)
 
 Use a sequence of morphemes as an Enumerable object.
 
