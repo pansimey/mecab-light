@@ -6,7 +6,9 @@ describe MeCab::Light::Result do
   end
 
   let :morpheme do
-    double(MeCab::Light::Morpheme)
+    double(MeCab::Light::Morpheme,
+           surface: 'surface',
+           feature: 'feature')
   end
 
   describe :new do
@@ -118,6 +120,14 @@ describe MeCab::Light::Result do
           it 'should be an instance of Morpheme' do
             expect(subject).to eq(morpheme)
           end
+        end
+      end
+
+      describe :inspect do
+        subject { new.inspect }
+
+        specify do
+          expect(subject).to match(/^#<MeCab::Light::Result:\w+ surface>$/)
         end
       end
 
