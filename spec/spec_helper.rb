@@ -3,11 +3,14 @@ require 'coveralls'
 require 'codeclimate-test-reporter'
 
 Coveralls.wear!
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter,
-  CodeClimate::TestReporter::Formatter
 ]
+if ENV['CODECLIMATE_REPO_TOKEN']
+  formatters << CodeClimate::TestReporter::Formatter
+end
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
 
 SimpleCov.start do
   add_filter 'spec'
