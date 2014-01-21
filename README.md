@@ -23,11 +23,6 @@ Or install it yourself as:
 
 ## Usage
 
-MeCab::Light is a lightweight tool.
-This gem works without the official binding.
-This supports only Tagger#parse method for now.
-Note that the method's feature is totally different from its original.
-
 ```ruby
 require 'mecab/light'
 
@@ -39,6 +34,11 @@ result.kind_of?(Enumerable) #=> true
 result.map { |morpheme| morpheme.surface }
 #=> ["この", "文", "を", "形態素", "解析", "し", "て", "ください", "。"]
 ```
+
+MeCab::Light is a lightweight tool.
+This gem works without the official binding.
+This supports only Tagger#parse method for now.
+Note that the method's feature is totally different from its original.
 
 ## Contributing
 
