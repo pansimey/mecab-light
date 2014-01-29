@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)](https://travis-ci.org/hadzimme/mecab-light)
 [![Coverage Status](https://coveralls.io/repos/hadzimme/mecab-light/badge.png?branch=master)](https://coveralls.io/r/hadzimme/mecab-light?branch=master)
 [![Code Climate](https://codeclimate.com/repos/52d6b3afe30ba0304300e862/badges/1667a80ba014a14e77f6/gpa.png)](https://codeclimate.com/repos/52d6b3afe30ba0304300e862/feed)
+[![Dependency Status](https://gemnasium.com/hadzimme/mecab-light.png)](https://gemnasium.com/hadzimme/mecab-light)
 
 Use a sequence of morphemes as an Enumerable object.
 
