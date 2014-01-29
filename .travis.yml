@@ -3,6 +3,3 @@ rvm:
 notification:
   emails:
     - hadzimme@icloud.com
-addons:
-  code_climate:
-    repo_token: 600d5406429ed7fb96cb425160f883cf11d471289014c1998dddaab29772a943
