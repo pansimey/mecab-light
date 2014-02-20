@@ -38,7 +38,7 @@ string = 'この文を形態素解析してください。'
 result = tagger.parse(string)
 result[0].surface #=> "この"
 result.kind_of?(Enumerable) #=> true
-result.map { |morpheme| morpheme.surface }
+result.map(&:surface)
 #=> ["この", "文", "を", "形態素", "解析", "し", "て", "ください", "。"]
 ```
 
