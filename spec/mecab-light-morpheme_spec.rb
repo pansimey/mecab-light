@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MeCab::Light::Morpheme, :class do
+describe MeCab::Light::Morpheme do
   subject do
     MeCab::Light::Morpheme.new(line)
   end
