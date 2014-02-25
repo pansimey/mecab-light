@@ -29,7 +29,7 @@ describe MeCab::Light::Tagger do
         'surface'
       end
 
-      specify 'should be an instance of MeCab::Light::Result' do
+      it 'should be an instance of MeCab::Light::Result' do
         expect(parse).to eq(result)
       end
     end
