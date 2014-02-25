@@ -6,8 +6,8 @@ require 'mecab/light/version'
 Gem::Specification.new do |gem|
   gem.name          = "mecab-light"
   gem.version       = MeCab::Light::VERSION
-  gem.authors       = ["Hajime WAKAHARA"]
-  gem.email         = ["hajime.wakahara@gmail.com"]
+  gem.authors       = ["Hajime Wakahara"]
+  gem.email         = ["hadzimme@icloud.com"]
   gem.description   = %q{Use a sequence of morphemes as an Enumerable object.}
   gem.summary       = %q{An simple interface for MeCab (UNOFFICIAL)}
   gem.homepage      = "https://github.com/hadzimme/mecab-light"
