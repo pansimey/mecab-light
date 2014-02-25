@@ -15,64 +15,22 @@ describe MeCab::Light::Tagger do
     double(MeCab::Light::Result)
   end
 
-  describe :new do
-    subject { new }
+  specify do
+    expect(subject).to respond_to(:parse).with(1).argument
+  end
 
-    let :new do
-      MeCab::Light::Tagger.new
+  describe :parse do
+    let :parse do
+      subject.parse(string)
     end
 
-    specify do
-      expect(subject).to respond_to(:parse).with(1).argument
-    end
-
-    describe :parse do
-      subject { new.parse(string) }
-
-      context 'with "surface"' do
-        let :string do
-          'surface'
-        end
-
-        it 'should be an instance of MeCab::Light::Result' do
-          expect(subject).to eq(result)
-        end
-
-        describe MeCab::Light::Result do
-          subject { MeCab::Light::Result }
-
-          before do
-            new.parse(string)
-          end
-
-          specify do
-            expect(subject).to have_received(:new).with("surface\tfeature\n")
-          end
-        end
-
-        describe 'an instance of', MeCab::Light::Binding do
-          subject { binding }
-
-          before do
-            new.parse(string)
-          end
-
-          specify do
-            expect(subject).to have_received(:parse_to_s).with('surface')
-          end
-        end
-      end
-    end
-
-    describe MeCab::Light::Binding do
-      subject { MeCab::Light::Binding }
-
-      before do
-        new
+    context 'with "surface"' do
+      let :string do
+        'surface'
       end
 
-      specify do
-        expect(subject).to have_received(:new).with('')
+      specify 'should be an instance of MeCab::Light::Result' do
+        expect(parse).to eq(result)
       end
     end
   end

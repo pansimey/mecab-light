@@ -11,136 +11,136 @@ describe MeCab::Light::Result do
            feature: 'feature')
   end
 
-  describe :new do
-    subject { new }
+  subject do
+    MeCab::Light::Result.new(parsed)
+  end
 
-    let :new do
-      MeCab::Light::Result.new(parsed)
+  context 'initialized with "surface\tfeature\n"' do
+    let :parsed do
+      "surface\tfeature\n"
     end
 
-    context 'with "surface\tfeature\n"' do
-      let :parsed do
-        "surface\tfeature\n"
+    specify do
+      expect(subject).to respond_to(:each).with(0).arguments
+    end
+
+    specify do
+      expect(subject).to be_an(Enumerable)
+    end
+
+    describe :each do
+      let :each do
+        subject.each(&block)
       end
 
-      specify do
-        expect(subject).to respond_to(:each).with(0).arguments
+      context 'with block' do
+        let :block do
+          lambda { |morpheme| }
+        end
+
+        it 'should return self' do
+          expect(each).to eq(subject)
+        end
+
+        specify do
+          expect { |b| subject.each(&b) }.to yield_control
+        end
+
+        it 'should yield with args(MeCab::Light::Morpheme)' do
+          expect { |b| subject.each(&b) }.to yield_with_args(morpheme)
+        end
       end
 
-      specify do
-        expect(subject).to be_an(Enumerable)
-      end
+      context 'without block' do
+        let :block do
+          nil
+        end
 
-      describe :each do
-        subject { new.each(&block) }
+        specify do
+          expect(each).to be_an_instance_of(Enumerator)
+        end
 
-        context 'with block' do
-          let :block do
-            lambda { |morpheme| }
-          end
-
-          it 'should return self' do
-            expect(subject).to eq(new)
+        describe :size do
+          let :size do
+            each.size
           end
 
           specify do
-            expect { |b| new.each(&b) }.to yield_control
-          end
-
-          it 'should yield with args(MeCab::Light::Morpheme)' do
-            expect { |b| new.each(&b) }.to yield_with_args(morpheme)
-          end
-        end
-
-        context 'without block' do
-          let :block do
-            nil
-          end
-
-          specify do
-            expect(subject).to be_an_instance_of(Enumerator)
-          end
-
-          describe :size do
-            subject { new.each.size }
-
-            specify do
-              expect(subject).to eq(1)
-            end
+            expect(size).to eq(1)
           end
         end
       end
+    end
 
-      describe :count do
-        subject { new.count }
-
-        specify do
-          expect(subject).to eq(1)
-        end
+    describe :count do
+      let :count do
+        subject.count
       end
 
-      describe :size do
-        subject { new.size }
+      specify do
+        expect(count).to eq(1)
+      end
+    end
 
-        specify do
-          expect(subject).to eq(1)
-        end
+    describe :size do
+      let :size do
+        subject.size
       end
 
-      describe :length do
-        subject { new.length }
+      specify do
+        expect(size).to eq(1)
+      end
+    end
 
-        specify do
-          expect(subject).to eq(1)
-        end
+    describe :length do
+      let :length do
+        subject.length
       end
 
-      describe :[] do
-        subject { new[nth] }
+      specify do
+        expect(length).to eq(1)
+      end
+    end
 
-        context 'with 0' do
-          let :nth do
-            0
-          end
-
-          it 'should be an instance of Morpheme' do
-            expect(subject).to eq(morpheme)
-          end
-        end
+    describe :[] do
+      let :at_literal do
+        subject[nth]
       end
 
-      describe :at do
-        subject { new.at(nth) }
+      context 'with 0' do
+        let :nth do
+          0
+        end
 
-        context 'with 0' do
-          let :nth do
-            0
-          end
-
-          it 'should be an instance of Morpheme' do
-            expect(subject).to eq(morpheme)
-          end
+        it 'should be an instance of Morpheme' do
+          expect(at_literal).to eq(morpheme)
         end
       end
+    end
 
-      describe :inspect do
-        subject { new.inspect }
-
-        specify do
-          expect(subject).to match(/^#<MeCab::Light::Result:\w+ surface>$/)
-        end
+    describe :at do
+      let :at do
+        subject.at(nth)
       end
 
-      describe MeCab::Light::Morpheme do
-        subject { MeCab::Light::Morpheme }
-
-        before do
-          new
+      context 'with 0' do
+        let :nth do
+          0
         end
 
-        specify do
-          expect(subject).to have_received(:new).with("surface\tfeature\n")
+        it 'should be an instance of Morpheme' do
+          expect(at).to eq(morpheme)
         end
+      end
+    end
+
+    describe :inspect do
+      let :inspect do
+        subject.inspect
+      end
+
+      specify do
+        expect(inspect).to match(/^#<MeCab::Light::Result:\w+ surface>$/)
       end
     end
   end

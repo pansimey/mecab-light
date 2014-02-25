@@ -1,81 +1,91 @@
 require 'spec_helper'
 
-describe MeCab::Light::Morpheme do
-  describe :new do
-    subject { new }
+describe MeCab::Light::Morpheme, :class do
+  subject do
+    MeCab::Light::Morpheme.new(line)
+  end
 
-    let :new do
-      MeCab::Light::Morpheme.new(line)
+  context 'initialized with "surface\tfeature\n"' do
+    let :line do
+      "surface\tfeature\n"
     end
 
-    context 'with "surface\tfeature\n"' do
-      let :line do
-        "surface\tfeature\n"
+    specify do
+      expect(subject).to respond_to(:surface).with(0).arguments
+    end
+
+    specify do
+      expect(subject).to respond_to(:feature).with(0).arguments
+    end
+
+    describe :surface do
+      let :surface do
+        subject.surface
       end
 
       specify do
-        expect(subject).to respond_to(:surface).with(0).arguments
+        expect(surface).to eq('surface')
+      end
+
+      describe :encoding do
+        let :encoding do
+          surface.encoding
+        end
+
+        specify do
+          expect(encoding).to eq(Encoding::UTF_8)
+        end
+      end
+    end
+
+    describe :feature do
+      let :feature do
+        subject.feature
       end
 
       specify do
-        expect(subject).to respond_to(:feature).with(0).arguments
+        expect(feature).to eq('feature')
       end
 
-      describe :surface do
-        subject { new.surface }
-
-        specify do
-          expect(subject).to eq('surface')
+      describe :encoding do
+        let :encoding do
+          feature.encoding
         end
 
-        describe :encoding do
-          subject { new.surface.encoding }
-
-          specify do
-            expect(subject).to eq(Encoding::UTF_8)
-          end
+        specify do
+          expect(encoding).to eq(Encoding::UTF_8)
         end
       end
+    end
 
-      describe :feature do
-        subject { new.feature }
-
-        specify do
-          expect(subject).to eq('feature')
-        end
-
-        describe :encoding do
-          subject { new.feature.encoding }
-
-          specify do
-            expect(subject).to eq(Encoding::UTF_8)
-          end
-        end
+    describe :to_s do
+      let :to_s do
+        subject.to_s
       end
 
-      describe :to_s do
-        subject { new.to_s }
-
-        specify do
-          expect(subject).to eq("surface\tfeature")
-        end
-
-        describe :encoding do
-          subject { new.to_s.encoding }
-
-          specify do
-            expect(subject).to eq(Encoding::UTF_8)
-          end
-        end
+      specify do
+        expect(to_s).to eq("surface\tfeature")
       end
 
-      describe :inspect do
-        subject { new.inspect }
+      describe :encoding do
+        let :encoding do
+          to_s.encoding
+        end
 
         specify do
-          pattern = /^#<MeCab::Light::Morpheme:\w+ surface\tfeature>$/
-          expect(subject).to match(pattern)
+          expect(encoding).to eq(Encoding::UTF_8)
         end
+      end
+    end
+
+    describe :inspect do
+      let :inspect do
+        subject.inspect
+      end
+
+      specify do
+        pattern = /^#<MeCab::Light::Morpheme:\w+ surface\tfeature>$/
+        expect(inspect).to match(pattern)
       end
     end
   end

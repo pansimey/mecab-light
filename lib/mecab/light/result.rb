@@ -5,7 +5,11 @@ module MeCab
 
       def initialize(parsed)
         @to_s = parsed
-        @morphemes = parsed.each_line.map { |line| Morpheme.new(line) }
+        @morphemes = []
+
+        parsed.each_line do |line|
+          @morphemes << Morpheme.new(line)
+        end
       end
 
       def to_one_line
