@@ -3,13 +3,13 @@
 [![Gem Version](https://badge.fury.io/rb/mecab-light.png)][gem]
 [![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)][travis]
 [![Coverage Status](https://coveralls.io/repos/hadzimme/mecab-light/badge.png?branch=master)][coveralls]
-[![Code Climate](https://codeclimate.com/repos/52d6b3afe30ba0304300e862/badges/1667a80ba014a14e77f6/gpa.png)][codeclimate]
+[![Code Climate](https://codeclimate.com/github/hadzimme/mecab-light.png)][codeclimate]
 [![Dependency Status](https://gemnasium.com/hadzimme/mecab-light.png)][gemnasium]
 
 [gem]: http://badge.fury.io/rb/mecab-light
 [travis]: https://travis-ci.org/hadzimme/mecab-light
 [coveralls]: https://coveralls.io/r/hadzimme/mecab-light?branch=master
-[codeclimate]: https://codeclimate.com/repos/52d6b3afe30ba0304300e862/feed
+[codeclimate]: https://codeclimate.com/github/hadzimme/mecab-light
 [gemnasium]: https://gemnasium.com/hadzimme/mecab-light
 
 Use a sequence of morphemes as an Enumerable object.
