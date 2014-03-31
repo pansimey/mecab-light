@@ -28,6 +28,10 @@ Or install it yourself as:
 
     $ gem install mecab-light
 
+Install on Windows:
+
+    $ gem install mecab-light -- --with-mecab-folder=C:/MeCab # assign yours
+
 ## Usage
 
 ```ruby
