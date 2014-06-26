@@ -1,11 +1,5 @@
 # MeCab::Light
 
-[![Gem Version](https://badge.fury.io/rb/mecab-light.png)][gem]
-[![Build Status](https://travis-ci.org/hadzimme/mecab-light.png)][travis]
-[![Coverage Status](https://coveralls.io/repos/hadzimme/mecab-light/badge.png?branch=master)][coveralls]
-[![Code Climate](https://codeclimate.com/github/hadzimme/mecab-light.png)][codeclimate]
-[![Dependency Status](https://gemnasium.com/hadzimme/mecab-light.png)][gemnasium]
-
 [gem]: http://badge.fury.io/rb/mecab-light
 [travis]: https://travis-ci.org/hadzimme/mecab-light
 [coveralls]: https://coveralls.io/r/hadzimme/mecab-light?branch=master
@@ -37,19 +31,25 @@ Install on Windows:
 ```ruby
 require 'mecab/light'
 
-tagger = MeCab::Light::Tagger.new
+tagger = MeCab::Light::Tagger.new('')
 string = 'この文を形態素解析してください。'
 result = tagger.parse(string)
-result[0].surface #=> "この"
 result.kind_of?(Enumerable) #=> true
+result.map(&:surface)
+#=> ["この", "文", "を", "形態素", "解析", "し", "て", "ください", "。"]
+
+model = MeCab::Light::Model.new('')
+tagger = MeCab::Light::Tagger.new(model)
+lattice = MeCab::Light::Lattice.new(model)
+lattice.sentence = 'この文を形態素解析してください。'
+result = tagger.parse(lattice)
 result.map(&:surface)
 #=> ["この", "文", "を", "形態素", "解析", "し", "て", "ください", "。"]
 ```
 
 MeCab::Light is a lightweight tool.
 This gem works without the official binding.
-This supports only Tagger#parse method for now.
-Note that the method's feature is totally different from its original.
+Note that this supports less methods than those of C API for now.
 
 ## Contributing
 
