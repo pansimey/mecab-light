@@ -160,6 +160,46 @@ rb_lattice_initialize(VALUE self, VALUE rb_model)
 }
 
 static VALUE
+rb_lattice_clear(VALUE self)
+{
+  Lattice* lattice;
+
+  Data_Get_Struct(self, Lattice, lattice);
+  mecab_lattice_clear(lattice->ptr);
+  return Qnil;
+}
+
+static VALUE
+rb_lattice_available_p(VALUE self)
+{
+  Lattice* lattice;
+  int is_available;
+
+  Data_Get_Struct(self, Lattice, lattice);
+  is_available = mecab_lattice_is_available(lattice->ptr);
+  if (is_available == 0) {
+    return Qfalse;
+  } else {
+    return Qtrue;
+  }
+}
+
+static VALUE
+rb_lattice_get_sentence(VALUE self)
+{
+  Lattice* lattice;
+  const char* sentence;
+
+  Data_Get_Struct(self, Lattice, lattice);
+  sentence = mecab_lattice_get_sentence(lattice->ptr);
+  if (sentence == NULL) {
+    return Qnil;
+  } else {
+    return rb_enc_associate(rb_str_new2(sentence), lattice->enc);
+  }
+}
+
+static VALUE
 rb_lattice_set_sentence(VALUE self, VALUE str)
 {
   Lattice* lattice;
@@ -236,6 +276,9 @@ Init_light()
   rb_define_private_method(rb_cTagger, "initialize", rb_tagger_initialize, 1);
   rb_define_private_method(rb_cLattice, "initialize", rb_lattice_initialize, 1);
   rb_define_method(rb_cTagger, "parse", rb_tagger_parse, 1);
+  rb_define_method(rb_cLattice, "clear", rb_lattice_clear, 0);
+  rb_define_method(rb_cLattice, "available?", rb_lattice_available_p, 0);
+  rb_define_method(rb_cLattice, "sentence", rb_lattice_get_sentence, 0);
   rb_define_method(rb_cLattice, "sentence=", rb_lattice_set_sentence, 1);
   rb_define_method(rb_cResult, "each", rb_result_each, 0);
   rb_define_method(rb_cNode, "surface", rb_node_get_surface, 0);
