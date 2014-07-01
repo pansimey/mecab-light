@@ -4,7 +4,7 @@
 
 #define MECAB_LIGHT_MAJOR_VERSION 1
 #define MECAB_LIGHT_MINOR_VERSION 0
-#define MECAB_LIGHT_PATCH_VERSION 0
+#define MECAB_LIGHT_PATCH_VERSION 1
 
 typedef struct {
   mecab_model_t* ptr;
