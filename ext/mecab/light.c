@@ -40,6 +40,7 @@ static void
 model_free(Model* model)
 {
   mecab_model_destroy(model->ptr);
+  free(model);
 }
 
 static VALUE
@@ -53,6 +54,7 @@ static void
 tagger_free(Tagger* tagger)
 {
   mecab_destroy(tagger->ptr);
+  free(tagger);
 }
 
 static VALUE
@@ -66,6 +68,7 @@ static void
 lattice_free(Lattice* lattice)
 {
   mecab_lattice_destroy(lattice->ptr);
+  free(lattice);
 }
 
 static VALUE
@@ -73,6 +76,18 @@ lattice_alloc(VALUE klass)
 {
   Lattice* lattice = ALLOC(Lattice);
   return Data_Wrap_Struct(klass, 0, lattice_free, lattice);
+}
+
+static void
+node_free(Node* node)
+{
+  free(node);
+}
+
+static void
+result_free(Result* result)
+{
+  free(result);
 }
 
 static VALUE
@@ -129,7 +144,7 @@ rb_tagger_parse(VALUE self, VALUE arg)
     rb_raise(rb_eTypeError, "The argument should be String or MeCab::Light::Lattice");
   }
   rb_cResult = rb_define_class_under(name_space(), "Result", rb_cObject);
-  return Data_Wrap_Struct(rb_cResult, 0, 0, result);
+  return Data_Wrap_Struct(rb_cResult, 0, result_free, result);
 }
 
 static VALUE
@@ -166,16 +181,18 @@ rb_result_each(VALUE self)
 {
   Result* result;
   Node* node;
+  mecab_node_t* m_node;
   VALUE rb_cNode;
 
   RETURN_SIZED_ENUMERATOR(self, 0, 0, result_enum_length);
   Data_Get_Struct(self, Result, result);
-  node = ALLOC(Node);
-  node->ptr = result->bos_node->next;
-  node->enc = result->enc;
+  m_node = result->bos_node->next;
   rb_cNode = rb_define_class_under(name_space(), "Node", rb_cObject);
-  for (; node->ptr->next; node->ptr = node->ptr->next) {
-    rb_yield(Data_Wrap_Struct(rb_cNode, 0, 0, node));
+  for (; m_node->next; m_node = m_node->next) {
+    node = ALLOC(Node);
+    node->ptr = m_node;
+    node->enc = result->enc;
+    rb_yield(Data_Wrap_Struct(rb_cNode, 0, node_free, node));
   }
   return self;
 }
