@@ -37,7 +37,7 @@ name_space()
 }
 
 static void
-model_free(Model* model)
+free_model(Model* model)
 {
   mecab_model_destroy(model->ptr);
   free(model);
@@ -47,11 +47,11 @@ static VALUE
 model_alloc(VALUE klass)
 {
   Model* model = ALLOC(Model);
-  return Data_Wrap_Struct(klass, 0, model_free, model);
+  return Data_Wrap_Struct(klass, 0, free_model, model);
 }
 
 static void
-tagger_free(Tagger* tagger)
+free_tagger(Tagger* tagger)
 {
   mecab_destroy(tagger->ptr);
   free(tagger);
@@ -61,11 +61,11 @@ static VALUE
 tagger_alloc(VALUE klass)
 {
   Tagger* tagger = ALLOC(Tagger);
-  return Data_Wrap_Struct(klass, 0, tagger_free, tagger);
+  return Data_Wrap_Struct(klass, 0, free_tagger, tagger);
 }
 
 static void
-lattice_free(Lattice* lattice)
+free_lattice(Lattice* lattice)
 {
   mecab_lattice_destroy(lattice->ptr);
   free(lattice);
@@ -75,17 +75,17 @@ static VALUE
 lattice_alloc(VALUE klass)
 {
   Lattice* lattice = ALLOC(Lattice);
-  return Data_Wrap_Struct(klass, 0, lattice_free, lattice);
+  return Data_Wrap_Struct(klass, 0, free_lattice, lattice);
 }
 
 static void
-node_free(Node* node)
+free_node(Node* node)
 {
   free(node);
 }
 
 static void
-result_free(Result* result)
+free_result(Result* result)
 {
   free(result);
 }
@@ -144,7 +144,7 @@ rb_tagger_parse(VALUE self, VALUE arg)
     rb_raise(rb_eTypeError, "The argument should be String or MeCab::Light::Lattice");
   }
   rb_cResult = rb_define_class_under(name_space(), "Result", rb_cObject);
-  return Data_Wrap_Struct(rb_cResult, 0, result_free, result);
+  return Data_Wrap_Struct(rb_cResult, 0, free_result, result);
 }
 
 static VALUE
@@ -192,7 +192,7 @@ rb_result_each(VALUE self)
     node = ALLOC(Node);
     node->ptr = m_node;
     node->enc = result->enc;
-    rb_yield(Data_Wrap_Struct(rb_cNode, 0, node_free, node));
+    rb_yield(Data_Wrap_Struct(rb_cNode, 0, free_node, node));
   }
   return self;
 }
