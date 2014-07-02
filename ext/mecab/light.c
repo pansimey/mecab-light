@@ -185,6 +185,20 @@ rb_lattice_available_p(VALUE self)
 }
 
 static VALUE
+rb_lattice_get_bos_node(VALUE self)
+{
+  Lattice* lattice;
+  Node* node = ALLOC(Node);
+  VALUE rb_cNode;
+
+  Data_Get_Struct(self, Lattice, lattice);
+  node->ptr = mecab_lattice_get_bos_node(lattice->ptr);
+  node->enc = lattice->enc;
+  rb_cNode = rb_define_class_under(name_space(), "Node", rb_cObject);
+  return Data_Wrap_Struct(rb_cNode, 0, free_node, node);
+}
+
+static VALUE
 rb_lattice_get_sentence(VALUE self)
 {
   Lattice* lattice;
@@ -238,6 +252,46 @@ rb_result_each(VALUE self)
 }
 
 static VALUE
+rb_node_prev(VALUE self)
+{
+  Node* node;
+  Node* prev_node = ALLOC(Node);
+  mecab_node_t* m_node;
+  VALUE rb_cNode;
+
+  Data_Get_Struct(self, Node, node);
+  m_node = node->ptr->prev;
+  if (m_node == NULL) {
+    return Qnil;
+  } else {
+    prev_node->ptr = m_node;
+    prev_node->enc = node->enc;
+    rb_cNode = rb_define_class_under(name_space(), "Node", rb_cObject);
+    return Data_Wrap_Struct(rb_cNode, 0, free_node, prev_node);
+  }
+}
+
+static VALUE
+rb_node_next(VALUE self)
+{
+  Node* node;
+  Node* next_node = ALLOC(Node);
+  mecab_node_t* m_node;
+  VALUE rb_cNode;
+
+  Data_Get_Struct(self, Node, node);
+  m_node = node->ptr->next;
+  if (m_node == NULL) {
+    return Qnil;
+  } else {
+    next_node->ptr = m_node;
+    next_node->enc = node->enc;
+    rb_cNode = rb_define_class_under(name_space(), "Node", rb_cObject);
+    return Data_Wrap_Struct(rb_cNode, 0, free_node, next_node);
+  }
+}
+
+static VALUE
 rb_node_get_surface(VALUE self)
 {
   Node* node;
@@ -278,9 +332,12 @@ Init_light()
   rb_define_method(rb_cTagger, "parse", rb_tagger_parse, 1);
   rb_define_method(rb_cLattice, "clear", rb_lattice_clear, 0);
   rb_define_method(rb_cLattice, "available?", rb_lattice_available_p, 0);
+  rb_define_method(rb_cLattice, "bos_node", rb_lattice_get_bos_node, 0);
   rb_define_method(rb_cLattice, "sentence", rb_lattice_get_sentence, 0);
   rb_define_method(rb_cLattice, "sentence=", rb_lattice_set_sentence, 1);
   rb_define_method(rb_cResult, "each", rb_result_each, 0);
+  rb_define_method(rb_cNode, "prev", rb_node_prev, 0);
+  rb_define_method(rb_cNode, "next", rb_node_next, 0);
   rb_define_method(rb_cNode, "surface", rb_node_get_surface, 0);
   rb_define_method(rb_cNode, "feature", rb_node_get_feature, 0);
   rb_include_module(rb_cResult, rb_mEnumerable);
